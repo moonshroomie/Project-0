@@ -1,5 +1,5 @@
 class playWordle:
-  word = "gravy"
+  word = "booob"
 
   def makeAGuess(userGuess):
     global word

@@ -1,8 +1,9 @@
-from Character import character
-from Item import item
-from playWordle import wordle
+from character import Character
+from item import Item
+from wordle import playWordle
 
 print("Welcome to the Game!")
+
 d1 = input("You come up to a field and see a star! Do you want to pick it up? (y/n)")
 if d1 == "y":
     star = Item("Star", "A Shiny Star", 10)
