@@ -8,10 +8,10 @@ class Character:
         name (str): The name of the character.
         health (int): The current health of the character.
         inventory (list): The items in the character's inventory.
-        dialogue (dict): A dictionary mapping player messages to the character's responses.
+        dialogue (dict): A dictionary mapping player messages to the character's responses     
     
     Methods:
-        talk_to_player(player_msg: str) -> None:
+        talk_to_player(player_msg: str) -> None:  
             Prints the character's response to the given player message, if it exists in the character's dialogue.
         receive_item(item: Any) -> None:
             Adds the given item to the character's inventory.
