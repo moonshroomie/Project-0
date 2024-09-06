@@ -3,7 +3,7 @@ import sys
 from character import Character
 from item import Item
 #from wordle import playWordle
-
+print("")
 def typewriter_effect(text, delay=0.1):
     for char in text:
         sys.stdout.write(char)
