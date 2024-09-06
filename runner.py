@@ -4,7 +4,17 @@ from character import Character
 from item import Item
 #from wordle import playWordle
 
-print("Welcome to the Game!")
+def typewriter_effect(text, delay=0.1):
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()  # Ensures the output is displayed immediately
+        time.sleep(delay)
+    print()  # Move to the next line after the text is printed
+
+# Example usage
+typewriter_effect("Hello, this is a typewriter effect!", delay=0.05)
+
+typewriter_effect("Welcome to Walmart Goat Simulator!")
 
 d1 = input("You come up to a field and see a star! Do you want to pick it up? (y/n)")
 if d1 == "y":
