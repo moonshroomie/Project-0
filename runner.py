@@ -3,7 +3,7 @@ import sys
 from character import Character
 from item import Item
 #from wordle import playWordle
-print("")
+
 def typewriter_effect(text, delay=0.1):
     for char in text:
         sys.stdout.write(char)
@@ -11,30 +11,17 @@ def typewriter_effect(text, delay=0.1):
         time.sleep(delay)
     print()  # Move to the next line after the text is printed
 
-# Example usage
-typewriter_effect("Hello, this is a typewriter effect!", delay=0.05)
+print()
+typewriter_effect("Welcome to the Ultimate Goat Experience!", delay=0.04)
+print()
 
-typewriter_effect("Welcome to Walmart Goat Simulator!")
-
-d1 = input("You come up to a field and see a star! Do you want to pick it up? (y/n)")
+typewriter_effect("You see a man pull out his wallet to pay for his food at a hot dog stand, do you intercept and take it?", delay=0.03)
+d1 = input("Y/N: ").lower()
+print()
 if d1 == "y":
-    star = Item("Star", "A Shiny Star", 10)
-    d1a = input ("You picked up the star! Yay! Now you see a dude. Want to talk to him? (y/n)")
+    wallet = Item("Wallet", "Leather Wallet", 150)
+    character.receive_item("Wallet")
+    typewriter_effect("You stole the man's wallet. It had $150 in it. Excellent Job!")
     if d1a == "y":
         character = Character("Dude", 100, [], {"Hello": "Hey, I'm a dude!"})
         character.talk_to_player("Hello")
-
-elif d1 == "n":
-    typewriter_effect("You cannot stop the voices.", delay=0.06)
-    print("""
-    """)
-    num_repeats = 15
-
-    for _ in range(num_repeats):
-        typewriter_effect("Kick the child.", delay=0.04)
-
-    print("""
-    """)
-    typewriter_effect("You headbutted the child into the stratosphere, leaving the single mother completely devastated...........", delay=0.05)
-    typewriter_effect("Excellent Job!!!", delay=0.04)
-
