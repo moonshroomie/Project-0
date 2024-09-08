@@ -16,17 +16,18 @@ class Character:
         receive_item(item: Any) -> None:
             Adds the given item to the character's inventory.
     """
-def __init__(self, name, health, inventory, dialogue):
-    self.name = name
-    self.health = health
-    self.inventory = inventory
-    self.dialogue = dialogue
+class Character:
+    def __init__(self, name, health, inventory, dialogue):
+        self.name = name
+        self.health = health
+        self.inventory = inventory
+        self.dialogue = dialogue
 
-def talk_to_player(self, player_msg):
-    for sentence in self.dialogue:
-        if player_msg == sentence:
-            print(self.dialogue[sentence])
+    def talk_to_player(self, player_msg):
+        if player_msg in self.dialogue:
+            print(self.dialogue[player_msg])
+        else:
+            print("I don't know what to say.")
 
-def receive_item(self, item):
-    self.inventory.append(item)
-
+    def receive_item(self, item):
+        self.inventory.append(item)
