@@ -1,5 +1,35 @@
+import time
+import sys
+
+class Colors:
+    BLACK = '\033[30m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+    BRIGHT_BLACK = '\033[90m'
+    BRIGHT_RED = '\033[91m'
+    BRIGHT_GREEN = '\033[92m'
+    BRIGHT_YELLOW = '\033[93m'
+    BRIGHT_BLUE = '\033[94m'
+    BRIGHT_MAGENTA = '\033[95m'
+    BRIGHT_CYAN = '\033[96m'
+    BRIGHT_WHITE = '\033[97m'
+    RESET = '\033[0m'
+
+def typewriter_effect(text, delay=0.1, color=Colors.RESET):
+    for char in text:
+        sys.stdout.write(f"{color}{char}{Colors.RESET}")
+        sys.stdout.flush()  # Ensures the output is displayed immediately
+        time.sleep(delay)
+    print() 
+
+
 class playWordle:
-  word = "booob"
+  word = "spook"
 
   def makeAGuess(userGuess):
     global word
@@ -15,19 +45,27 @@ class playWordle:
     return hint
     
 
-  print("Let's play wordle! /n Guess the Wordle in 6 tries. Each guess must be a valid 5-letter word. For each guess, a hint will tell you how many letters you've guessed correctly. A G represents a letter in the word and in the correct spot.. A Y represents a letter in the word but in the wrong spot. A - represents a letter not in the word in any spot. \n Guess below! \n")
+  #print("Let's play wordle! Guess the Wordle in 6 tries. Each guess must be a valid 5-letter word. For each guess, a hint will tell you how many letters you've guessed correctly. A G represents a letter in the word and in the correct spot.. A Y represents a letter in the word but in the wrong spot. A - represents a letter not in the word in any spot. \n Guess below! \n")
+typewriter_effect("Welcome to Wordle!", delay=0.05, color=Colors.CYAN)
+print()
+typewriter_effect("You have 6 attempts to guess the word correctly.", delay=0.05, color=Colors.YELLOW)
+typewriter_effect("Each guess must be a valid 5-letter word.", delay=0.05, color=Colors.YELLOW)
+typewriter_effect("Each time you guess, a hint will tell you how many letters you've guessed correctly.", delay=0.05, color=Colors.YELLOW)
+typewriter_effect("A 'G' represents a letter in the word and in the correct spot.", delay=0.05, color=Colors.YELLOW)
+typewriter_effect("A 'Y' represents a letter in the word but in the wrong spot.", delay=0.05, color=Colors.YELLOW)
+typewriter_effect("A '-' represents a letter not in the word in any spot.", delay=0.05, color=Colors.YELLOW)
 
-  for i in range(6):
-    guess = input("Put your guess here: ").lower()
+print()
 
-    hint = makeAGuess(guess)
+for i in range(6):
+  guess = input("Put your guess here: ").lower()
 
-    print(hint)
-    if hint == "GGGGG":
-      print("You Won!")
-      break
-  if hint != "GGGGG":
-    print("You Lost")
-    
+  hint = makeAGuess(guess)
 
-  print("Let's play wordle! Guess the Wordle in 6 tries. Each guess must be a valid 5-letter word. For each guess, a hint will tell you how many letters you've guessed correctly. A G represents a letter in the word and in the correct spot.. A Y represents a letter in the word but in the wrong spot. A - represents a letter not in the word in any spot. \n Guess below! \n")
+  print(hint)
+  if hint == "GGGGG":
+    typewriter_effect("You Won!", delay-0.04, color=Colors.BRIGHT_GREEN)
+    break
+if hint != "GGGGG":
+    typewriter_effect("You Lost!", delay-0.04, color=Colors.BRIGHT_RED)
+  
