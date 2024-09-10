@@ -34,7 +34,6 @@ class playWordle:
 
   def makeAGuess(userGuess):
     global word
-
     hint = ""
     word_chars = list(word)  # Create a list of characters from the word
     user_chars = list(userGuess)  # Create a list of characters from the user's guess
@@ -76,8 +75,10 @@ class playWordle:
 
     print(hint)
     if hint == "GGGGG":
-      typewriter_effect("You Won!", delay=0.04, color=Colors.BRIGHT_GREEN)
-      break
+        print()
+        typewriter_effect("You Won!", delay=0.04, color=Colors.BRIGHT_GREEN)
+        break
   if hint != "GGGGG":
-      typewriter_effect("You Lost!", delay=-0.04, color=Colors.BRIGHT_RED)
+    print()
+    typewriter_effect("You Lost!", delay=0.04, color=Colors.BRIGHT_RED)
     
