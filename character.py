@@ -58,23 +58,15 @@ class Character:
 
     def show_inventory(self):
         if not self.inventory:
-            self.typewriter_effect("Your inventory is empty.", delay=0.04)
+            print()
+            self.typewriter_effect("Your inventory is empty.", delay=0.04, color=self.Colors.CYAN)
+            print()
         else:
-            self.typewriter_effect("Your inventory contains:", delay=0.04)
+            print()
+            self.typewriter_effect("Your inventory contains:", delay=0.04, color=self.Colors.CYAN)
             for item in self.inventory:
-                self.typewriter_effect(f"- {item.name}: {item.description}", delay=0.04)
-
-    def check_inventory_input():
-        while True:
-            choice = input("Press 'I' to check your inventory or 'Q' to quit: ").lower()
-            if choice == "i":
-                player.show_inventory()
-            elif choice == "q":
-                player.typewriter_effect("Goodbye!", delay=0.04)
-                break
-            else:
-                player.typewriter_effect("Invalid input. Press 'I' to check your inventory or 'Q' to quit.", delay=0.04)
-
+                self.typewriter_effect(f"- {item.name}: {item.description}", delay=0.04, color=self.Colors.CYAN)
+                print()
 
     def receive_item(self, item):
         self.inventory.append(item)

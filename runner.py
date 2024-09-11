@@ -43,7 +43,7 @@ def typewriter_effect(text, delay=0.1, color=Colors.RESET):
 
 # initial text introduction
 print()
-typewriter_effect("Welcome to Corner Store Simulator!", delay=0.05, color=Colors.CYAN)
+typewriter_effect("Welcome to Corner Store Simulator!", delay=0.05, color=Colors.BRIGHT_CYAN)
 print()
 
 typewriter_effect("A man walks into the corner store late at night and approaches you at the counter....", delay=0.04, color=Colors.BRIGHT_YELLOW)
@@ -76,39 +76,46 @@ while True:
             player.show_inventory()
         else:
             # Handle invalid input and loop back to ask for valid input
-            typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Character.Colors.RED)
+            typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Colors.RED)
         print()
 
     # Once in the conversation, proceed to this part
     if in_conversation:
-        typewriter_effect("You look behind you at the counter, but don't see any lighters.", delay=0.04, color=Character.Colors.YELLOW)
+        typewriter_effect("You look behind you at the counter, but don't see any lighters.", delay=0.04, color=Colors.BRIGHT_YELLOW)
         d2 = input("Press 'E' to reply, 'Q' to flee the conversation, or 'I' to check your inventory: ").lower()
 
         # Conversation choices
         if d2 == "e":
             player.talk_to_player("No")  # Player's response: "No, but we may have some in the back"
             print()
-            typewriter_effect("You walk into the backroom but don't know where to look. Left or Right?", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
+            typewriter_effect("You walk into the backroom but don't know where to look. Left or Right?", delay=0.04, color=Colors.BRIGHT_YELLOW)
 
             # Loop to find lighters
             while not found_lighters:
                 d2 = input("Press 'L' for left, 'R' for right, or 'I' to check your inventory: ").lower()
                 if d2 == "l":
                     lighters = Item("Lighters", "A pack of lighters", 0)
-                    player.inventory.append(lighters)
-                    typewriter_effect("You find a pack of lighters next to the rat's nest in the corner and pick them up.", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
-                    typewriter_effect("Lighters have been added to your inventory.", delay=0.04, color=Character.Colors.BRIGHT_GREEN)
+                    typewriter_effect("You spot a pack of lighters next to the rat's nest in the corner of the backroom.", delay=0.04, color=Colors.BRIGHT_YELLOW)
+                    d2a = input("Press 'G' to grab the lighters: ").lower()
+                    if d2a == "g":
+                        player.receive_item(lighters)
+                        lighters.use_item(player)
+                        print()
+                    else:
+                        typewriter_effect("Invalid Input. Press 'G' to grab theg.", delay=0.04, color=Colors.BRIGHT_YELLOW)
+                        print()
+                    typewriter_effect("Lighters have been added to your inventory.", delay=0.04, color=Colors.BRIGHT_GREEN)
                     found_lighters = True  # Player found the lighters, breaking the loop
                     print() 
                 elif d2 == "r":
-                    typewriter_effect("You don't find any lighters and turn back.", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
+                    typewriter_effect("You don't find any lighters and turn back.", delay=0.04, color=Colors.BRIGHT_YELLOW)
                     print()
-                    typewriter_effect("You're back in the backroom. Left or Right?", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
+                    typewriter_effect("You're back in the backroom. Left or Right?", delay=0.04, color=Colors.BRIGHT_YELLOW)
                 elif d2 == "i":
                     player.show_inventory()
                 else:
                     # Stay in this loop until valid input is given
-                    typewriter_effect("Invalid Input. Press 'L', 'R', or 'I'.", delay=0.04, color=Character.Colors.RED)
+                    typewriter_effect("Invalid Input. Press 'L', 'R', or 'I'.", delay=0.04, color=Colors.RED)
                     print()
 
         elif d2 == "q":
@@ -118,11 +125,12 @@ while True:
             player.show_inventory()
         else:
             # Stay in this loop until valid input is given
-            typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Character.Colors.RED)
+            typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Colors.RED)
             print()
 
     # After the lighters are found, give the player a choice to give them to the NPC
     if found_lighters:
+        typewriter_effect("You walk back to the counter.", delay=0.04, color=Colors.BRIGHT_YELLOW)
         while True:  # Loop until valid input or break
             d3 = input("Press 'G' to give the lighters to the man, 'Q' to flee, or 'I' to check your inventory: ").lower()
             # Giving the lighters to the man
@@ -130,22 +138,22 @@ while True:
                 if lighters in player.inventory:
                     player.inventory.remove(lighters)  # Remove the lighters from the player's inventory
                     player.talk_to_player("Give")
-                    typewriter_effect("You gave the lighters to the man. He gives you his thanks and pays.", delay=0.04, color=Character.Colors.YELLOW)
+                    typewriter_effect("You gave the lighters to the man. He gives you his thanks and pays.", delay=0.04, color=Colors.YELLOW)
                     print()
                     # Loop until valid goodbye input
                     while True:
                         d3a = input("Press 'E' to say goodbye, or 'I' to check your inventory: ").lower()
                         if d3a == "e":
                             player.talk_to_player("Goodbye")
-                            typewriter_effect("The man walks out of the store.", delay=0.04, color=Character.Colors.YELLOW)
+                            typewriter_effect("The man walks out of the store.", delay=0.04, color=Colors.BRIGHT_YELLOW)
                             break  # End the game
                         elif d3a == "i":
                             player.show_inventory()
                         else:
-                            typewriter_effect("Invalid input. Press 'E' to say goodbye or 'I' to check your inventory.", delay=0.04, color=Character.Colors.RED)
+                            typewriter_effect("Invalid input. Press 'E' to say goodbye or 'I' to check your inventory.", delay=0.04, color=Colors.RED)
                     break  # Exit the lighters giving loop
                 else:
-                    typewriter_effect("You don't have any lighters.", delay=0.04, color=Character.Colors.RED)
+                    typewriter_effect("You don't have any lighters.", delay=0.04, color=Colors.RED)
             elif d3 == "q":
                 typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Colors.RED)
                 break  # Exit the game
@@ -153,7 +161,7 @@ while True:
                 player.show_inventory()
             else:
                 # If the player inputs invalid option, stay in this loop and prompt again
-                typewriter_effect("Invalid Input. Press 'G', 'Q', or 'I'.", delay=0.04, color=Character.Colors.RED)
+                typewriter_effect("Invalid Input. Press 'G', 'Q', or 'I'.", delay=0.04, color=Colors.RED)
         break
     break
 print()
@@ -172,16 +180,16 @@ player = Character("Woman", 100, player.inventory, {
 while True:
     if d1a == "e":
         player.talk_to_player("Hello")
-        typewriter_effect("You look behind you to ensure the slushie machine is working. It seems to be working fine.", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
+        typewriter_effect("You look behind you to ensure the slushie machine is working. It seems to be working fine.", delay=0.04, color=Colors.BRIGHT_YELLOW)
         print()
         break
     elif d1a == "q":
-        typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Character.Colors.RED)
+        typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Colors.RED)
         break
     elif d1a == "i":
         player.show_inventory()
     else:
-        typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Character.Colors.RED)
+        typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Colors.RED)
     d1a = input("Press 'E' to greet them, 'Q' to flee the conversation, or 'I' to check your inventory: ").lower()
 
 # First decision point: 'E' to reply or 'Q' to flee
@@ -189,16 +197,16 @@ while True:
     d1ab = input("Press 'E' to reply, 'Q' to flee the conversation, or 'I' to check your inventory: ").lower()
     if d1ab == "e":
         player.talk_to_player("Q")
-        typewriter_effect("The woman ponders for a moment...", delay=0.03, color=Character.Colors.BRIGHT_YELLOW)
+        typewriter_effect("The woman ponders for a moment...", delay=0.03, color=Colors.BRIGHT_YELLOW)
         player.talk_to_player("Flavor")
         break
     elif d1ab == "q":
-        typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Character.Colors.RED)
+        typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Colors.RED)
         break    # Exits the current interaction
     elif d1ab == "i":
         player.show_inventory()
     else:
-        typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Character.Colors.RED)
+        typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Colors.RED)
 
 print()
 
@@ -208,18 +216,18 @@ while True:
     if d1ac == "e":
         player.talk_to_player("Order")
         print()
-        typewriter_effect("You walk to the back of the counter to the slushie machine.", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
-        typewriter_effect("Now you must prepare the slushie for the customer.", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
-        typewriter_effect("To prepare the slushie, you must win a game of Wordle.", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
-        typewriter_effect("Good Luck!", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
+        typewriter_effect("You walk to the back of the counter to the slushie machine.", delay=0.04, color=Colors.BRIGHT_YELLOW)
+        typewriter_effect("Now you must prepare the slushie for the customer.", delay=0.04, color=Colors.BRIGHT_YELLOW)
+        typewriter_effect("To prepare the slushie, you must win a game of Wordle.", delay=0.04, color=Colors.BRIGHT_YELLOW)
+        typewriter_effect("Good Luck!", delay=0.04, color=Colors.BRIGHT_YELLOW)
         break
     elif d1ac == "q":
-        typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Character.Colors.RED)
+        typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Colors.RED)
         break  # Exits the current interaction
     elif d1ac == "i":
         player.show_inventory()
     else:
-        typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Character.Colors.RED)
+        typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Colors.RED)
 
 # After slushie preparation game
 while True:
@@ -228,38 +236,42 @@ while True:
         clear_screen()
         from wordle import playWordle
         playWordle()
+        break
     elif d1ad == "i":
         player.show_inventory()
     elif d1ad == "q":
-        typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Character.Colors.RED)
+        typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Colors.RED)
         exit()
     else:
-        typewriter_effect("Invalid Input. Press 'E' to continue or 'I' to check your inventory.", delay=0.04, color=Character.Colors.RED)
+        typewriter_effect("Invalid Input. Press 'E' to continue or 'I' to check your inventory.", delay=0.04, color=Colors.RED)
         print()
 
 # After successfully making the slushie
 slushie = Item("Slushie", "Cement flavored", 0)
-player.inventory.append(slushie)
-typewriter_effect("A slushie has been added to your inventory.", delay=0.04, color=Character.Colors.BRIGHT_GREEN)
+player.receive_item(slushie)
+slushie.use_item(player)
 print()
-typewriter_effect("You finished the slushie. Good Job!", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
-typewriter_effect("You walk back to the counter to the customer.", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
+typewriter_effect("A slushie has been added to your inventory.", delay=0.04, color=Colors.BRIGHT_GREEN)
+print()
+typewriter_effect("You finished the slushie. Good Job!", delay=0.04, color=Colors.BRIGHT_YELLOW)
+typewriter_effect("You walk back to the counter to the customer.", delay=0.04, color=Colors.BRIGHT_YELLOW)
 
 # Third decision point: 'E' to give slushie or 'Q' to flee
 while True:
-    d1ae = input("Press 'E' to give the slushie, 'Q' to flee the conversation, or 'I' to check your inventory: ").lower()
-    if d1ae == "e":
+    d1ae = input("Press 'G' to give the slushie, 'Q' to flee the conversation, or 'I' to check your inventory: ").lower()
+    if d1ae == "g":
         player.talk_to_player("Give_Slush")
         player.inventory.remove(slushie) 
-        typewriter_effect("You give the slushie to the customer.", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
-        typewriter_effect("The customer thanks you and leaves the store.", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
+        typewriter_effect("You give the slushie to the customer.", delay=0.04, color=Colors.BRIGHT_YELLOW)
+        typewriter_effect("The customer thanks you and leaves the store.", delay=0.04, color=Colors.BRIGHT_YELLOW)
+        print()
         break
     elif d1ae == "q":
-        typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Character.Colors.RED)
+        typewriter_effect("You walked away, pretending you needed to pee.", delay=0.05, color=Colors.RED)
         break  # Exits the current interaction
     elif d1ae == "i":
         player.show_inventory()
     else:
-        typewriter_effect("Invalid Input. Press 'E', 'Q', or 'I'.", delay=0.04, color=Character.Colors.RED)
+        typewriter_effect("Invalid Input. Press 'G', 'Q', or 'I'.", delay=0.04, color=Colors.RED)
     print()
-typewriter_effect("You finished your job for the night. It's time to clock out. See you next time!", delay=0.04, color=Character.Colors.BRIGHT_YELLOW)
+typewriter_effect("You finished your job for the night. It's time to clock out. See you next time!", delay=0.04, color=Colors.BRIGHT_YELLOW)
