@@ -70,3 +70,6 @@ class Character:
 
     def receive_item(self, item):
         self.inventory.append(item)
+        print()
+        self.typewriter_effect(f"{item.name} was added to your inventory", delay=0.04, color=self.Colors.BRIGHT_GREEN)
+        print()

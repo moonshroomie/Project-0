@@ -44,7 +44,7 @@ def makeAGuess(userGuess):
     # First pass: check for correct positions
     for i in range(len(word)):
         if user_chars[i] == word_chars[i]:
-            hint += "G"
+            hint += "X"
             word_chars[i] = None
             user_chars[i] = None
         else:
@@ -54,9 +54,10 @@ def makeAGuess(userGuess):
     for i in range(len(userGuess)):
         if user_chars[i] is not None:
             if user_chars[i] in word_chars:
-                hint = hint[:i] + "Y" + hint[i+1:]
+                hint = hint[:i] + "O" + hint[i+1:]
                 word_chars[word_chars.index(user_chars[i])] = None
     return hint
+
 
 word = "spook"
 
@@ -64,39 +65,40 @@ class playWordle:
     
   def playWordle():
     global word
-    print()
-    typewriter_effect("Welcome to Wordle!", delay=0.05, color=Colors.CYAN)
-    print()
-    typewriter_effect("You have 6 attempts to guess the word correctly.", delay=0.03, color=Colors.YELLOW)
-    typewriter_effect("Each guess must be a valid 5-letter word.", delay=0.03, color=Colors.YELLOW)
-    typewriter_effect("Each time you guess, a hint will tell you how many letters you've guessed correctly.", delay=0.03, color=Colors.YELLOW)
-    typewriter_effect("A 'G' represents a letter in the word and in the correct spot.", delay=0.03, color=Colors.YELLOW)
-    typewriter_effect("A 'Y' represents a letter in the word but in the wrong spot.", delay=0.03, color=Colors.YELLOW)
-    typewriter_effect("A '-' represents a letter not in the word in any spot.", delay=0.03, color=Colors.YELLOW)
-
     while True:
-          for i in range(6):
+        print()
+        typewriter_effect("Welcome to Wordle!", delay=0.05, color=Colors.CYAN)
+        print(f"""{Colors.YELLOW}
+You have 6 attempts to guess the word correctly.
+Each guess must be a valid 5-letter word.
+Each time you guess, a hint will tell you how many letters you've guessed correctly.
+A 'X' represents a letter in the word and in the correct spot.
+A 'O' represents a letter in the word but in the wrong spot.
+A '-' represents a letter not in the word in any spot.
+Good luck!
+            {Colors.RESET}""")
+
+        for i in range(6):
             print()
             guess = input("Put your guess here: ").lower()
             hint = makeAGuess(guess)
             print(hint)
-            if hint == "GGGGG":
+            if hint == "XXXXX":
                 print()
                 typewriter_effect("You Won!", delay=0.04, color=Colors.BRIGHT_GREEN)
                 return True
 
-          print()
-          typewriter_effect("You Lost!", delay=0.04, color=Colors.BRIGHT_RED)
-          while True:
-                play_again = input("Press 'E' to play again: ").lower()
-                if play_again == 'e':
-                    clear_screen()
-                    break
-                else:
-                    typewriter_effect("Invalid Input. Press 'E' to continue.", delay=0.05, color=Colors.RED)
-                    print()
-                    # If the player wants to play again, the loop will restart from the beginning 
-          if play_again != 'e':
-                return False   
+        print()
+        typewriter_effect("You Lost!", delay=0.04, color=Colors.BRIGHT_RED)
+        while True:
+            play_again = input("Press 'E' to play again: ").lower()
+            if play_again == 'e':
+                clear_screen()
+                break
+            else:
+                typewriter_effect("Invalid Input. Press 'E' to continue.", delay=0.05, color=Colors.RED)
+                print()
+        if play_again != 'e':
+            return False
 
 playWordle.playWordle()
